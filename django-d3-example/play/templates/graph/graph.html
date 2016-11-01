@@ -31,10 +31,14 @@ body {
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
+
+
+  var myArr = [0,1,2,4,5,6,8]
 $.ajax({
   type: "POST",
   url: /send/,
-  data: {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value},
+  data: {arr: myArr},
+  //{csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value}
   success: function(data){
     console.warn(data)
     console.log("success")

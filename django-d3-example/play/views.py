@@ -1,24 +1,25 @@
-#from django.db import connections
-#from django.db.models import Count
 from django.http import JsonResponse
 from django.shortcuts import render
 
 from .models import Play
-
-
-#from django.shortcuts import render
 from django.http import HttpResponse
+#from .forms import NameForm
+from django.views.decorators.csrf import csrf_exempt
 
-from .forms import NameForm
-
+@csrf_exempt
 def get_name(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         print('METHOD POST')
-        print(request)
+        arr = request.POST.getlist('arr[]')
+        #arr = list(map(arr,lambda x: x.replace('u','')))
+        sanitized = []
+        for item in arr:
+            print item
+            sanitized.append(int(item))
+
+        print sanitized
         data = {'name': 'gerry'}
-        #HttpResponse("Here's the text of the Web page.")
-        #return HttpResponse(data, content_type='application/json')
         return JsonResponse( (data) , safe=False)
     else:
         return render(request, 'graph/graph.html')
@@ -37,7 +38,7 @@ def data(request, data={'void':'void'}):
     else:
         dic = {}
 
-    '''
+    
     dic = {
     "nodes": [
         {"id": "1", "group": 1},
@@ -60,17 +61,5 @@ def data(request, data={'void':'void'}):
 
     ]
     }
-    '''
-    #nodes = [dict1,dict1,dict1,dict1,dict1]
 
-    '''
-    data = Play.objects.all() \
-        .extra(
-            select={
-                'month': connections[Play.objects.db].ops.date_trunc_sql('month', 'date')
-            }
-        ) \
-        .values('month') \
-        .annotate(count_items=Count('id'))
-    '''
-    return  HttpResponse(dic)#JsonResponse((dic), safe=False)
+    return JsonResponse((dic), safe=False)
