@@ -1,34 +1,28 @@
-#from django.db import connections
-#from django.db.models import Count
 from django.http import JsonResponse
 from django.shortcuts import render
 
 from .models import Play
-
-
-#from django.shortcuts import render
 from django.http import HttpResponse
+#from .forms import NameForm
+from django.views.decorators.csrf import csrf_exempt
 
-from .forms import NameForm
-
+@csrf_exempt
 def get_name(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            
-            return data(request,{'bar':456}) #HttpResponseRedirect('/thanks/')
+        print('METHOD POST')
+        arr = request.POST.getlist('arr[]')
+        #arr = list(map(arr,lambda x: x.replace('u','')))
+        sanitized = []
+        for item in arr:
+            print item
+            sanitized.append(int(item))
 
-    # if a GET (or any other method) we'll create a blank form
+        print sanitized
+        data = {'name': 'gerry'}
+        return JsonResponse( (data) , safe=False)
     else:
-        form = NameForm()
-
-    return render(request, 'graph/graph.html', {'form': form})
+        return render(request, 'graph/graph.html')
 
 
 
@@ -36,7 +30,8 @@ def graph(request):
     return render(request, 'graph/graph.html')
 
 
-def data(request, data={'vacio':456}):
+
+def data(request, data={'void':'void'}):
     dic = {}
     if request:
         print(data)
@@ -44,7 +39,7 @@ def data(request, data={'vacio':456}):
     else:
         dic = {}
 
-    '''
+    
     dic = {
     "nodes": [
         {"id": "1", "group": 1},
@@ -67,17 +62,5 @@ def data(request, data={'vacio':456}):
 
     ]
     }
-    '''
-    #nodes = [dict1,dict1,dict1,dict1,dict1]
 
-    '''
-    data = Play.objects.all() \
-        .extra(
-            select={
-                'month': connections[Play.objects.db].ops.date_trunc_sql('month', 'date')
-            }
-        ) \
-        .values('month') \
-        .annotate(count_items=Count('id'))
-    '''
-    return  HttpResponse(dic)#JsonResponse((dic), safe=False)
+    return JsonResponse((dic), safe=False)
