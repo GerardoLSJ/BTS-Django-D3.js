@@ -6,12 +6,45 @@ from django.shortcuts import render
 from .models import Play
 
 
+#from django.shortcuts import render
+from django.http import HttpResponse
+
+from .forms import NameForm
+
+def get_name(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NameForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            
+            return data(request,{'bar':456}) #HttpResponseRedirect('/thanks/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = NameForm()
+
+    return render(request, 'graph/graph.html', {'form': form})
+
+
+
 def graph(request):
     return render(request, 'graph/graph.html')
 
 
-def data(request):
-    
+def data(request, data={}):
+    dic = {}
+    if request:
+        print(data)
+        dic = data
+    else:
+        dic = {}
+
+    '''
     dic = {
     "nodes": [
         {"id": "1", "group": 1},
@@ -34,7 +67,7 @@ def data(request):
 
     ]
     }
-
+    '''
     #nodes = [dict1,dict1,dict1,dict1,dict1]
 
     '''
@@ -47,4 +80,4 @@ def data(request):
         .values('month') \
         .annotate(count_items=Count('id'))
     '''
-    return JsonResponse((dic), safe=False)
+    return  HttpResponse(dic)#JsonResponse((dic), safe=False)
