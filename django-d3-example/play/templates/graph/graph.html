@@ -34,6 +34,8 @@ body {
 
 
   var myArr = [0,1,2,4,5,6,8]
+
+function postArr(myArr){
 $.ajax({
   type: "POST",
   url: /send/,
@@ -45,6 +47,8 @@ $.ajax({
     },
   dataType: 'json'
 });
+}
+
 </script>
 <h1>Hello</h1>
 

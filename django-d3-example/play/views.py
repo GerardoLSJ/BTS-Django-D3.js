@@ -18,9 +18,7 @@ def get_name(request):
             print item
             sanitized.append(int(item))
 
-        print sanitized
-        data = {'name': 'gerry'}
-        return JsonResponse( (data) , safe=False)
+        return JsonResponse( (sanitized) , safe=False)
     else:
         return render(request, 'graph/graph.html')
 
