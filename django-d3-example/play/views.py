@@ -14,21 +14,14 @@ from .forms import NameForm
 def get_name(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            
-            return data(request,{'bar':456}) #HttpResponseRedirect('/thanks/')
-
-    # if a GET (or any other method) we'll create a blank form
+        print('METHOD POST')
+        print(request)
+        data = {'name': 'gerry'}
+        #HttpResponse("Here's the text of the Web page.")
+        #return HttpResponse(data, content_type='application/json')
+        return JsonResponse( (data) , safe=False)
     else:
-        form = NameForm()
-
-    return render(request, 'graph/graph.html', {'form': form})
+        return render(request, 'graph/graph.html')
 
 
 
@@ -36,7 +29,7 @@ def graph(request):
     return render(request, 'graph/graph.html')
 
 
-def data(request, data={}):
+def data(request, data={'void':'void'}):
     dic = {}
     if request:
         print(data)
