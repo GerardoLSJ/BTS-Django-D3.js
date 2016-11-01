@@ -36,7 +36,7 @@ def graph(request):
     return render(request, 'graph/graph.html')
 
 
-def data(request, data={}):
+def data(request, data={'vacio':456}):
     dic = {}
     if request:
         print(data)
