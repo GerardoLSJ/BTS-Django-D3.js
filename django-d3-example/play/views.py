@@ -10,8 +10,9 @@ from .BSTAuto import *
 
 a = arbol()
 a.crearArbol([23, 54, 89, 39, 13, 36, 75, 14, 27,10,9,8,76,77,78,90])
+a.autobalanceado()
 a.imprimir()
-
+#This populates a global VAR named JSON.
 
 @csrf_exempt
 def get_name(request):
@@ -44,7 +45,28 @@ def data(request, data={'void':'void'}):
     else:
         dic = {}
 
-    
+    dic = {"nodes": [],"links": []}
+
+    for item in JSON:
+        element = {'id':item['id'],'group':item['altura'] }
+        dic['nodes'].append(element)
+
+        if(item['hDer'] != 'None'): #Strin not None #FIX LATER WITH NILL
+            link = {'source': item['id'] , 'target':item['hDer']}
+            dic['links'].append(link)
+
+        if(item['hIzq'] != 'None'):
+            link = {'source': item['id'] , 'target':item['hIzq']}
+            dic['links'].append(link)
+            
+    print(dic)
+
+
+
+    return JsonResponse((dic), safe=False)
+
+
+'''    
     dic = {
     "nodes": [
         {"id": "1", "group": 1},
@@ -67,5 +89,4 @@ def data(request, data={'void':'void'}):
 
     ]
     }
-
-    return JsonResponse((dic), safe=False)
+'''
