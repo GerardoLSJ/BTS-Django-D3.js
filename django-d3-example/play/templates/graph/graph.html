@@ -70,7 +70,7 @@ var color = d3.scaleOrdinal(d3.schemeCategory20);
 
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }))
-    .force("charge", d3.forceManyBody().strength(-10))
+    .force("charge", d3.forceManyBody().strength(-150))
     .force("center", d3.forceCenter(width / 2, height / 2));
 
 /*
@@ -116,7 +116,13 @@ var data = {
 
   }*/
 
+    function dblclick(d) {
+      d3.select(this).classed("fixed", d.fixed = false);
+    }
 
+    function dragstart(d) {
+      d3.select(this).classed("fixed", d.fixed = true);
+    }
 
     var link = svg.append("g")
       .attr("class", "links")
@@ -132,7 +138,10 @@ var data = {
     .enter().append("circle")
       .attr("r",12)
       .attr("fill", function(d) { return color(d.group); })
+      .on("click", dbclick)
       .call(d3.drag()
+          //.on("dblclick", dblclick2)
+          //.on("dragstart", dragstart)
           .on("start", dragstarted)
           .on("drag", dragged)
           .on("end", dragended));
@@ -145,10 +154,9 @@ var data = {
       .on("tick", ticked);
 
 
-
   simulation.force("link")
       .links(graph.links)
-      .distance(160);
+      .distance(15);
       
 
   function ticked() {
@@ -166,8 +174,8 @@ var data = {
 
 function dragstarted(d) {
   if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-  d.fx = d.x;
-  d.fy = d.y;
+   d.fx = d.x;
+   d.fy = d.y;
 }
 
 function dragged(d) {
@@ -176,6 +184,11 @@ function dragged(d) {
 }
 
 function dragended(d) {
+  if (!d3.event.active) simulation.alphaTarget(0);
+  d.fx = d.fx
+  d.fy = d.fy
+}
+function dbclick(d) {
   if (!d3.event.active) simulation.alphaTarget(0);
   d.fx = null;
   d.fy = null;
