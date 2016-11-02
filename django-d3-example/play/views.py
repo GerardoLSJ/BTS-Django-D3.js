@@ -6,6 +6,13 @@ from django.http import HttpResponse
 #from .forms import NameForm
 from django.views.decorators.csrf import csrf_exempt
 
+from .BSTAuto import *
+
+a = arbol()
+a.crearArbol([23, 54, 89, 39, 13, 36, 75, 14, 27,10,9,8,76,77,78,90])
+a.imprimir()
+
+
 @csrf_exempt
 def get_name(request):
     # if this is a POST request we need to process the form data
@@ -15,7 +22,7 @@ def get_name(request):
         #arr = list(map(arr,lambda x: x.replace('u','')))
         sanitized = []
         for item in arr:
-            print item
+            print (item)
             sanitized.append(int(item))
 
         return JsonResponse( (sanitized) , safe=False)
