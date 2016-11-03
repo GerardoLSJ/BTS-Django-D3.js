@@ -10,7 +10,7 @@ from .BSTAuto import *
 
 a = arbol()
 a.crearArbol([23, 54, 89, 39, 13, 36, 75, 14, 27,10,9,8,76,77,78,90,1,2,3,4,5,6])
-a.autobalanceado()
+a.autobalanceo()
 a.imprimir()
 #This populates a global VAR named JSON.
 
