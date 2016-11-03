@@ -30,38 +30,44 @@ class arbol:
                 act.hizq = ver
                 ver.padre = act
         
-    def agregarVertice(self,v):
+    def insertarVertice(self,v):
         ver = vertex(v)
         if self.raiz == None:
             self.raiz = ver
         else:
             self.agregar(self.raiz, ver)
 
+    def eliminarVertice(selv,v):
+    	pass
+
     def crearArbol(self,listVer):
         for i in range(len(listVer)):
-            self.agregarVertice(listVer[i])
+            self.insertarVertice(listVer[i])
 
     def imprimir(self,act = False):	#recorrido infix
         global JSON
         if act is False: act = self.raiz
         if act != None:
             self.imprimir(act.hizq)
+            
             if act.padre == None:
                 padre = "None"
             else:
-                padre = act.padre.id
+            	padre = act.padre.id	
             if act.hizq == None:
                 hIzq = "None"
             else:
-                hIzq = act.hizq.id
+            	hIzq = act.hizq.id
             if act.hder == None:
                 hDer = "None"
             else:
-                hDer = act.hder.id
+            	hDer = act.hder.id
+                
             print("Nodo: {:<7} FE: {:<3} Altura: {:<5} Padre: {:<7} hIzq: {:<7} hDer: {}".format(act.id,act.FE,act.altura,padre,hIzq,hDer))
-            JSON.append({'id': act.id , 'altura': act.altura})
+            JSON.append({'id': act.id , 'altura': act.altura , 'hIzq': hIzq, 'hDer':hDer})
 
             self.imprimir(act.hder)
+
 
     def altura(self,act = False):	#Recorrido postorden,calcula la altura de las hojas a la raiz
         if act is False: act = self.raiz
@@ -73,46 +79,6 @@ class arbol:
             return act.altura
         else:
             return -1
-
-    def imprimirDesv(self,arrDesv,act = False):
-        if act is False: act = self.raiz
-        if act != None:
-            self.imprimirDesv(arrDesv,act.hizq)
-            if act.hizq != None and act.hder != None:
-                #print(act.id)
-                diferencia = act.hder.altura - act.hizq.altura
-                if  diferencia < -1:
-                    arrDesv.append([act.id,"izq"])
-                elif diferencia > 1:
-                    arrDesv.append([act.id,"der"])
-            elif (act.hizq == None and act.hder != None) and act.hder.altura > 0:
-                #print(act.id)
-                arrDesv.append([act.id,"der"])
-            elif (act.hizq != None and act.hder == None) and act.hizq.altura > 0:
-                #print(act.id)
-                arrDesv.append([act.id,"izq"])
-            self.imprimirDesv(arrDesv,act.hder)
-        return arrDesv
-
-    def obtenerOBJDesv(self,arrDesv,act = False): #Devuelve los vertices desviados como OBJ
-        if act is False: act = self.raiz
-        if act != None:
-            self.obtenerOBJDesv(arrDesv,act.hizq)
-            if act.hizq != None and act.hder != None:
-                #print(act.id)
-                diferencia = act.hder.altura - act.hizq.altura
-                if  diferencia < -1:
-                    arrDesv.append([act,"izq"])
-                elif diferencia > 1:
-                    arrDesv.append([act,"der"])
-            elif (act.hizq == None and act.hder != None) and act.hder.altura > 0:
-                #print(act.id)
-                arrDesv.append([act,"der"])
-            elif (act.hizq != None and act.hder == None) and act.hizq.altura > 0:
-                #print(act.id)
-                arrDesv.append([act,"izq"])
-            self.obtenerOBJDesv(arrDesv,act.hder)
-        return arrDesv
 
     def calcFE(self,act = False): #Factor de equilibrio
         if act is False: act = self.raiz
@@ -127,7 +93,42 @@ class arbol:
             else:
                 act.FE = 0
             self.calcFE(act.hder)
-            
+
+    def imprimirDesv(self,arrDesv,act = False):
+        if act is False: 
+        	act = self.raiz
+        	self.altura()
+        	self.calcFE()
+        if act != None:
+            self.imprimirDesv(arrDesv,act.hizq)
+            if act.FE > 1:
+            	#print(act.id)
+            	arrDesv.append([act.id,"der"])
+            elif act.FE < -1:
+            	#print(act.id)
+            	arrDesv.append([act.id,"izq"])
+            self.imprimirDesv(arrDesv,act.hder)
+        return arrDesv
+
+    def obtenerOBJDesv(self,arrDesv,act = False): #Devuelve los vertices desviados como OBJ
+        if len(arrDesv) < 1:
+	        if act is False: 
+	        	act = self.raiz
+	        	self.altura()
+	        	self.calcFE()
+	        if act != None:
+	            self.obtenerOBJDesv(arrDesv,act.hizq)
+	            if len(arrDesv) < 1:
+		            if act.FE > 1:
+		            	#print(act.id)
+		            	arrDesv.append([act,"der"])
+		            elif act.FE < -1:
+		            	#print(act.id)
+		            	arrDesv.append([act,"izq"])
+		            self.obtenerOBJDesv(arrDesv,act.hder)
+	        return arrDesv
+
+
     def RR(self,n,act = False):	#Rotacion a la derecha (n = int)
         if act is False: act = self.raiz
         #print("act: ", act.id)
@@ -208,9 +209,7 @@ class arbol:
         self.RR(o.hder.id)
         self.LR(o.id)
 
-    def autobalanceado(self):
-        self.altura()
-        self.calcFE()
+    def autobalanceo(self):
         #self.imprimir()
         #arrDesv = self.imprimirDesv([])  #Solo para verificar arreglo de desvalanceados
         #print("Nodos desequilibrados: ", arrDesv)
@@ -255,10 +254,7 @@ class arbol:
             else:
                 #print("NO SE ENTRO A NINGUNA OPCION")
                 pass
-                
 
-            self.altura()
-            self.calcFE()
             #self.imprimir();
             #arrDesv = self.imprimirDesv([])
             #print("Nodos desequilibrados: ", arrDesv)
@@ -270,24 +266,69 @@ class arbol:
             
         #self.imprimir()
 
-    
+    def buscarVertice(self,v, act = False):
+    	if act is False: 
+    		act = self.raiz
 
+    	if act != None:
+    		print("actual", act.id)
+	    	if act.id == v:
+	    		print("Vertice: ", act.id, "\t", "Profundidad: ",self.raiz.altura - act.altura)
+	    	else:
+	    		if act.id < v:
+	    			self.buscarVertice(v, act.hder)
+	    		elif act.id > v:
+	    			self.buscarVertice(v,act.hizq)
+    	else:
+    		print("Vertice {} no encontrado".format(v))
+
+
+
+    def obtenerMin(self):
+    	act = self.raiz
+    	if self.raiz != None:
+	    	while act.hizq:
+	    		#print(act.id)
+	    		act = act.hizq
+	    	print("Elemento menor:", act.id)
+
+    def obtenerMax(self):
+    	act = self.raiz
+    	if self.raiz != None:
+	    	while act.hder:
+	    		#print(act.id)
+	    		act = act.hder
+	    	print("Elemento mayor:", act.id)
+
+   
+
+"""
 class main():
     #os.system("cls")
     a = arbol()
-    #a.crearArbol([23, 54, 89, 39, 13, 36, 75, 14, 27,10,9,8,76,77,78,90])
-    #a.crearArbol([1,2,3,4,5,6,7,8,9,10])
+    a.crearArbol([23, 54, 89, 39, 13, 36, 75, 14, 27,10,9,8,76,77,78,90])
+    #a.crearArbol([0,1,2,3,4,5,6,7,8,9])
     #a.crearArbol([10,9,8,7,6,5,4,3,2,1])
     #a.crearArbol([50,10,14])
-    #a.autobalanceado()
+    
+    a.autobalanceo()
+    a.imprimir()
+    x = 5
+    while x:
+    	x = x-1
+    	a.buscarVertice(int(input("Vertice a buscar: ")))
+
+    a.obtenerMax()
+    a.obtenerMin()
 
 
-    for i in range(20):
+    for i in range(5):
         #print("\n\n\nINSERTANDO EL NODO ", i)
-        #a.agregarVertice(random.randrange(0,1000000))
-        a.agregarVertice(i)
-        a.autobalanceado()
+        #a.insertarVertice(random.randrange(0,1000000))
+        a.insertarVertice(i)
+        a.autobalanceo()
         #os.system("pause")
     a.imprimir()
     print(vars(a))
     print(JSON)
+"""
