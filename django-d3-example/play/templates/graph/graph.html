@@ -1,6 +1,8 @@
 {% load static %}
 <script src="{% static 'd3.v4.min.js' %}"></script>
 <script src="{% static 'jquery3.min.js' %}" ></script>
+<script src="{% static 'd3-hierarchy.v1.min.js' %}"></script>
+
 <!DOCTYPE html>
 
 <meta charset="utf-8">
@@ -35,6 +37,34 @@ body {
 </div>
 
 <script>
+var table = [
+  {"name": "Eve",   "parent": ""},
+  {"name": "Cain",  "parent": "Eve"},
+  {"name": "Seth",  "parent": "Eve"},
+  {"name": "Enos",  "parent": "Seth"},
+  {"name": "Noam",  "parent": "Seth"},
+  {"name": "Abel",  "parent": "Eve"},
+  {"name": "Awan",  "parent": "Eve"},
+  {"name": "Enoch", "parent": "Awan"},
+  {"name": "Azura", "parent": "Eve"}
+];
+ table = [
+   {"name": "5", "parent": "23"},
+   {"name": "6", "parent": "5"},
+   {"name": "23", "parent": ""},
+   {"name": "39", "parent": "54"},
+   {"name": "54", "parent": "23"},
+   {"name": "89", "parent": "54"}
+   ];
+
+var root = d3.stratify()
+    .id(function(d) { return d.name; })
+    .parentId(function(d) { return d.parent; })
+    (table);
+
+     console.log('root');
+    console.log(root);
+
 
 
   var myArr = [0,1,2,4,5,6,8]

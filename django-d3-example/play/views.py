@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .BSTAuto import *
 
 a = arbol()
-a.crearArbol([23, 54, 89, 39, 13, 36, 75, 14, 27,10,9,8,76,77,78,90,1,2,3,4,5,6])
+a.crearArbol([23, 54, 89, 39,5,6]) #13, 36, 75, 14, 27,10,9,8,76,77,78,90,1,2,3,4,5,6
 a.autobalanceo()
 a.imprimir()
 #This populates a global VAR named JSON.
@@ -46,7 +46,7 @@ def data(request, data={'void':'void'}):
         dic = {}
 
     dic = {"nodes": [],"links": []}
-
+    '''
     for item in JSON:
         element = {'id':item['id'],'group':item['altura'] }
         dic['nodes'].append(element)
@@ -60,10 +60,10 @@ def data(request, data={'void':'void'}):
             dic['links'].append(link)
             
     print(dic)
+    '''
 
 
-
-    return JsonResponse((dic), safe=False)
+    return JsonResponse((JSON), safe=False)
 
 
 '''    

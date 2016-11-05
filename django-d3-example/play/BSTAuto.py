@@ -64,7 +64,7 @@ class arbol:
             	hDer = act.hder.id
                 
             print("Nodo: {:<7} FE: {:<3} Altura: {:<5} Padre: {:<7} hIzq: {:<7} hDer: {}".format(act.id,act.FE,act.altura,padre,hIzq,hDer))
-            JSON.append({'id': act.id , 'altura': act.altura , 'hIzq': hIzq, 'hDer':hDer})
+            JSON.append({ 'name': str(act.id),'parent': str(padre)})
 
             self.imprimir(act.hder)
 
