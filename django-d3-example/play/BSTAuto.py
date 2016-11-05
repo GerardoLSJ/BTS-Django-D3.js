@@ -94,7 +94,7 @@ class arbol:
                 act.FE = 0
             self.calcFE(act.hder)
 
-    def imprimirDesv(self,arrDesv = [],act = False):
+    def imprimirDesv(self,arrDesv,act = False):
         if act is False: 
         	act = self.raiz
         	self.altura()
@@ -266,22 +266,39 @@ class arbol:
             
         #self.imprimir()
 
-    def buscarVertice(selv,v):
-    	pass
+    def buscarVertice(self,v, act = False):
+    	if act is False: 
+    		act = self.raiz
+
+    	if act != None:
+    		print("actual", act.id)
+	    	if act.id == v:
+	    		print("Vertice: ", act.id, "\t", "Profundidad: ",self.raiz.altura - act.altura)
+	    	else:
+	    		if act.id < v:
+	    			self.buscarVertice(v, act.hder)
+	    		elif act.id > v:
+	    			self.buscarVertice(v,act.hizq)
+    	else:
+    		print("Vertice {} no encontrado".format(v))
+
+
 
     def obtenerMin(self):
     	act = self.raiz
-    	while act.hizq:
-    		#print(act.id)
-    		act = act.hizq
-    	print("Elemento menor:", act.id)
+    	if self.raiz != None:
+	    	while act.hizq:
+	    		#print(act.id)
+	    		act = act.hizq
+	    	print("Elemento menor:", act.id)
 
     def obtenerMax(self):
     	act = self.raiz
-    	while act.hder:
-    		#print(act.id)
-    		act = act.hder
-    	print("Elemento mayor:", act.id)
+    	if self.raiz != None:
+	    	while act.hder:
+	    		#print(act.id)
+	    		act = act.hder
+	    	print("Elemento mayor:", act.id)
 
    
 
@@ -296,6 +313,11 @@ class main():
     
     a.autobalanceo()
     a.imprimir()
+    x = 5
+    while x:
+    	x = x-1
+    	a.buscarVertice(int(input("Vertice a buscar: ")))
+
     a.obtenerMax()
     a.obtenerMin()
 
