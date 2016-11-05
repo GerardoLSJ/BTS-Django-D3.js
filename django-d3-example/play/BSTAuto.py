@@ -51,7 +51,7 @@ class arbol:
             self.imprimir(act.hizq)
             
             if act.padre == None:
-                padre = "None"
+                padre = "" #Instead of NONE 
             else:
             	padre = act.padre.id	
             if act.hizq == None:
