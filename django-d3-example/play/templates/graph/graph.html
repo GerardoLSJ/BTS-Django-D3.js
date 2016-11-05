@@ -71,12 +71,17 @@ var svg = d3.select("body").append("svg")
 
 
 var root = [];
+/*
+
+
+
 var table = [{"parent": "2", "name": "1"}, {"parent": "3", "name": "2"}, {"parent": "5", "name": "3"}, {"parent": "3", "name": "4"}, {"parent": "13", "name": "5"}, {"parent": "8", "name": "6"}, {"parent": "5", "name": "8"}, {"parent": "10", "name": "9"}, {"parent": "8", "name": "10"}, {"parent": "", "name": "13"}, {"parent": "36", "name": "14"}, {"parent": "14", "name": "27"}, {"parent": "13", "name": "36"}, {"parent": "76", "name": "75"}, {"parent": "77", "name": "76"}, {"parent": "36", "name": "77"}, {"parent": "77", "name": "78"}, {"parent": "78", "name": "90"}]
 
 root = d3.stratify()
     .id(function(d) { return d.name; })
     .parentId(function(d) { return d.parent; })
     (table);
+*/
 
 
 d3.json("/api/data", function(error, rawData) {
@@ -89,14 +94,12 @@ strat.then(function(success,error){
       .id(function(d) { return d.name; })
       .parentId(function(d) { return d.parent; })
       (rawData);
-      return success
+       yey();
   })
+  success();
 
-});
-console.log('after Promise')
-
-
-
+}).then(function(){
+  console.log('after Promise')
   root.x0 = height / 2;
   root.y0 = 0;
 
@@ -110,6 +113,10 @@ console.log('after Promise')
 
   root.children.forEach(collapse);
   update(root);
+
+});
+
+
 });
 
 d3.select(self.frameElement).style("height", "800px");
