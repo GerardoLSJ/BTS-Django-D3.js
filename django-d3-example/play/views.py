@@ -8,28 +8,39 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .BSTAuto import *
 
+JSONlocal = [] #global
 a = arbol()
 #a.crearArbol([13, 36, 75, 14, 27,10,9,8,76,77,78,90,1,2,3,4,5,6]) #13, 36, 75, 14, 27,10,9,8,76,77,78,90,1,2,3,4,5,6 [50,20,70,15,25,60,80,10,5,3,2,1,17]
 a.crearArbol([23, 54, 89, 39, 13, 36, 75, 14, 27,10,9,8,76,77,78,90])
 a.autobalanceo()
-a.imprimir()
+JSONlocal = a.imprimir()
+print('EJECUTANDO DESDE ARRIBA______')
 #This populates a global VAR named JSON.
 
 @csrf_exempt
 def get_name(request):
     # if this is a POST request we need to process the form data
+    sanitized = []
     if request.method == 'POST':
         print('METHOD POST')
         arr = request.POST.getlist('arr[]')
         #arr = list(map(arr,lambda x: x.replace('u','')))
-        sanitized = []
+        
         for item in arr:
             print (item)
             sanitized.append(int(item))
 
-        return JsonResponse( (sanitized) , safe=False)
+        a = arbol()
+        a.crearArbol(sanitized)
+        a.autobalanceo()
+        JSONlocal = []
+        JSONlocal = a.imprimir(False,[]) #actualizamos el JSON
+        print('JSON locals')
+        print(JSONlocal)
+        data('fakeRequest') #actualizamos nuestro RESTful API 
+        return JsonResponse( (JSONlocal) , safe=False)
     else:
-        return render(request, 'graph/graph.html')
+        return JsonResponse( (sanitized) , safe=False)
 
 
 
@@ -39,6 +50,8 @@ def graph(request):
 
 
 def data(request, data={'void':'void'}):
+    print('en dataaaaa')
+    '''
     dic = {}
     if request:
         print(data)
@@ -47,7 +60,7 @@ def data(request, data={'void':'void'}):
         dic = {}
 
     dic = {"nodes": [],"links": []}
-    '''
+    
     for item in JSON:
         element = {'id':item['id'],'group':item['altura'] }
         dic['nodes'].append(element)
@@ -61,10 +74,11 @@ def data(request, data={'void':'void'}):
             dic['links'].append(link)
             
     print(dic)
+    request
     '''
 
 
-    return JsonResponse((JSON), safe=False)
+    return JsonResponse((JSONlocal), safe=False)
 
 
 '''    

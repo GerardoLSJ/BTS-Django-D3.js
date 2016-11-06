@@ -45,11 +45,11 @@ class arbol:
         for i in range(len(listVer)):
             self.insertarVertice(listVer[i])
 
-    def imprimir(self,act = False):	#recorrido infix
-        global JSON
+    def imprimir(self,act = False,JSON=[]):	#recorrido infix
+        #global JSON
         if act is False: act = self.raiz
         if act != None:
-            self.imprimir(act.hizq)
+            self.imprimir(act.hizq, JSON)
             
             if act.padre == None:
                 padre = "" #Instead of NONE 
@@ -64,10 +64,11 @@ class arbol:
             else:
             	hDer = act.hder.id
                 
-            print("Nodo: {:<7} FE: {:<3} Altura: {:<5} Padre: {:<7} hIzq: {:<7} hDer: {}".format(act.id,act.FE,act.altura,padre,hIzq,hDer))
+            #print("Nodo: {:<7} FE: {:<3} Altura: {:<5} Padre: {:<7} hIzq: {:<7} hDer: {}".format(act.id,act.FE,act.altura,padre,hIzq,hDer))
             JSON.append({ 'name': str(act.id),'parent': str(padre)})
 
-            self.imprimir(act.hder)
+            self.imprimir(act.hder,JSON)
+            return JSON
 
 
     def altura(self,act = False):	#Recorrido postorden,calcula la altura de las hojas a la raiz

@@ -30,11 +30,29 @@ body{
 <body>
 
 
+
 {% load static %}
 <script src="{% static 'd3.v3.min.js' %}"></script>
 <script src="{% static 'jquery3.min.js' %}" ></script>
 <script src="{% static 'd3-hierarchy.v1.min.js' %}"></script>
 
+<script>
+    $(document).ready(function() {
+    $('#SubmitData').click(function() {
+      var input = $('#getFromInput').val();
+      console.warn(typeof input)
+      var arr = input.split(",");
+      console.warn(arr)
+      postArr(arr);
+    });
+});
+</script>
+
+<div> 
+    
+    <input id="getFromInput" type="text" placeholder="1,2,3,4">
+    <a href="#" id="SubmitData">send data</a> 
+</div>
 <script>
 
 
@@ -82,11 +100,7 @@ root = d3.stratify()
     .parentId(function(d) { return d.parent; })
     (table);
 */
-
-
-d3.json("/api/data", function(error, rawData) {
-  if (error) throw error;
-
+function todo(rawData){
 var strat = Promise.resolve();
 strat.then(function(success,error){
   return new Promise(function(yey,nop){
@@ -114,10 +128,28 @@ strat.then(function(success,error){
   root.children.forEach(collapse);
   update(root);
 
+    });
+}
+
+function askForJSON(data = []){
+var api;
+if(data.length < 1){
+    api = "/api/data";
+    d3.json(api, function(error, rawData) {
+  if (error) throw error;
+  todo(rawData)
 });
 
+}
+else{
+    todo(data);
+}
 
-});
+
+
+
+} //askforJSON
+askForJSON();
 
 d3.select(self.frameElement).style("height", "800px");
 
@@ -227,13 +259,15 @@ function click(d) {
 <script>
 /****SEND DATA */
 function postArr(myArr){
+    console.log(myArr)
 $.ajax({
   type: "POST",
   url: /send/,
   data: {arr: myArr},
   //{csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value}
   success: function(data){
-    console.warn(data)
+    console.log(data)
+    askForJSON(data);
     console.log("success")
     },
   dataType: 'json'
