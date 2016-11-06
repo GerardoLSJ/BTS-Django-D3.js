@@ -178,7 +178,9 @@ function update(source) {
       links = tree.links(nodes);
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y = d.depth * 180; });
+  nodes.forEach(function(d) { 
+      d.y = d.depth * 180; 
+      });
 
   // Update the nodes…
   var node = svg.selectAll("g.node")
@@ -255,6 +257,7 @@ function update(source) {
   nodes.forEach(function(d) {
     d.x0 = d.x;
     d.y0 = d.y;
+    
   });
 }
 
@@ -265,11 +268,19 @@ function click(d) {
     d.children = null;
   } else {
     d.children = d._children;
+    d.children.forEach(expand); //Expand all at once
     d._children = null;
   }
   update(d);
 }
 
+    function expand(d) {
+        if (d._children) {
+            d.children = d._children;
+            d.children.forEach(expand);
+            d._children = null;
+        }
+    }
 </script>
 
 
