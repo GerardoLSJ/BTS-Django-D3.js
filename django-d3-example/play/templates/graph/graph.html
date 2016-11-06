@@ -1,6 +1,8 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
+{% load static %}
+<link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" >
 <style>
 
 body{
@@ -17,7 +19,7 @@ body{
 }
 
 .node text {
-  font: 10px sans-serif;
+  font: 15px sans-serif;
 }
 
 .link {
@@ -47,15 +49,19 @@ body{
     });
 });
 </script>
-
-<div> 
-    <div>Nueva grafica:</div>
-    <input id="getFromInput" type="text" placeholder="1,2,3,4">
-    <a href="#" id="SubmitData">send data</a> 
-
-    <div>Incrementar actual en 1 elemnto</div>
-    <input id="" type="text" placeholder="int">
-    <a href="#" id="">send data</a> 
+<div class="form-inline">
+    <div class="form-group"> 
+        <label>Nueva grafica:</label>
+        <input id="getFromInput" type="text" placeholder="1,2,3,4" class="form-control">
+        <a href="#" id="SubmitData" class="btn btn-info">send data</a> 
+    </div>
+</div>
+<div class="form-inline">
+    <div class="form-group">
+        <label>Incrementar actual en 1 elemnto</label>
+        <input id="" type="text" placeholder="int" class="form-control">
+        <a href="#" id="" class="btn btn-info">send data</a> 
+    </div>
 </div>
 <script>
 
