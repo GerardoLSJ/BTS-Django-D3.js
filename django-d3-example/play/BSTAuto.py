@@ -45,11 +45,11 @@ class arbol:
         for i in range(len(listVer)):
             self.insertarVertice(listVer[i])
 
-    def imprimir(self,act = False,JSON=[]):	#recorrido infix
+    def imprimir(self,JSON=[],act = False,):	#recorrido infix
         #global JSON
         if act is False: act = self.raiz
         if act != None:
-            self.imprimir(act.hizq, JSON)
+            self.imprimir(JSON,act.hder)
             
             if act.padre == None:
                 padre = "" #Instead of NONE 
@@ -67,7 +67,7 @@ class arbol:
             #print("Nodo: {:<7} FE: {:<3} Altura: {:<5} Padre: {:<7} hIzq: {:<7} hDer: {}".format(act.id,act.FE,act.altura,padre,hIzq,hDer))
             JSON.append({ 'name': str(act.id),'parent': str(padre)})
 
-            self.imprimir(act.hder,JSON)
+            self.imprimir(JSON,act.hizq)
             return JSON
 
 

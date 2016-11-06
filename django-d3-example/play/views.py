@@ -35,7 +35,7 @@ def get_name(request):
         a.crearArbol(sanitized)
         a.autobalanceo()
         JSONlocal = []
-        JSONlocal = a.imprimir(False,[]) #actualizamos el JSON
+        JSONlocal = a.imprimir([]) #actualizamos el JSON
         print('JSON locals')
         print(JSONlocal)
         data('fakeRequest') #actualizamos nuestro RESTful API 
