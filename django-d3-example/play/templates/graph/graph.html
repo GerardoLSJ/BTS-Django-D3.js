@@ -41,11 +41,15 @@ body{
 <script>
     $(document).ready(function() {
     $('#SubmitData').click(function() {
-      var input = $('#getFromInput').val();
-      console.warn(typeof input)
-      var arr = input.split(",");
-      console.warn(arr)
-      postArr(arr);
+        var input = $('#getFromInput').val();
+        var arr = input.split(",");
+        postArr(arr);
+    });
+    //postIncrement
+    $('#SubmitIncrement').click(function() {
+        var input = $('#getIncrement').val(); 
+        var number = Number(input);
+        postIncrement(number);
     });
 });
 </script>
@@ -59,11 +63,12 @@ body{
 <div class="form-inline">
     <div class="form-group">
         <label>Incrementar actual en 1 elemnto</label>
-        <input id="" type="text" placeholder="int" class="form-control">
-        <a href="#" id="" class="btn btn-info">send data</a> 
+        <input id="getIncrement" type="text" placeholder="int" class="form-control">
+        <a href="#" id="SubmitIncrement" class="btn btn-info">send elemnt</a> 
     </div>
 </div>
 <script>
+var actualArray = [];
 
 
 /*
@@ -147,12 +152,15 @@ if(data.length < 1){
     api = "/api/data";
     d3.json(api, function(error, rawData) {
   if (error) throw error;
-  todo(rawData[0])
+
+  todo(rawData[0]);
+  actualArray = rawData[1]; //save actual array
 });
 
 }
 else{
     todo(data[0]);
+    actualArray = data[1]; //save actual array
 }
 
 
@@ -275,6 +283,22 @@ $.ajax({
   url: /send/,
   data: {arr: myArr},
   //{csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value}
+  success: function(data){
+    console.log(data)
+    askForJSON(data);
+    console.log("success")
+    },
+  dataType: 'json'
+});
+}
+
+function postIncrement(increment){
+    actualArray.push(increment);
+    console.log(actualArray)
+$.ajax({
+  type: "POST",
+  url: /send/,
+  data: {arr: actualArray},
   success: function(data){
     console.log(data)
     askForJSON(data);
