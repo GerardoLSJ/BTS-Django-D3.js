@@ -11,7 +11,8 @@ from .BSTAuto import *
 JSONlocal = [] #global
 a = arbol()
 #a.crearArbol([13, 36, 75, 14, 27,10,9,8,76,77,78,90,1,2,3,4,5,6]) #13, 36, 75, 14, 27,10,9,8,76,77,78,90,1,2,3,4,5,6 [50,20,70,15,25,60,80,10,5,3,2,1,17]
-a.crearArbol([23, 54, 89, 39, 13, 36, 75, 14, 27,10,9,8,76,77,78,90])
+volatil = [23, 54, 89, 39, 13, 36, 75, 14, 27,10,9,8,76,77,78,90]
+a.crearArbol(volatil)
 a.autobalanceo()
 JSONlocal = a.imprimir()
 print('EJECUTANDO DESDE ARRIBA______')
@@ -38,7 +39,7 @@ def get_name(request):
         print('JSON locals')
         print(JSONlocal)
         data('fakeRequest') #actualizamos nuestro RESTful API 
-        return JsonResponse( (JSONlocal) , safe=False)
+        return JsonResponse( ([JSONlocal, sanitized]) , safe=False)
     else:
         return JsonResponse( (sanitized) , safe=False)
 
@@ -78,7 +79,7 @@ def data(request, data={'void':'void'}):
     '''
 
 
-    return JsonResponse((JSONlocal), safe=False)
+    return JsonResponse([JSONlocal,volatil], safe=False)
 
 
 '''    

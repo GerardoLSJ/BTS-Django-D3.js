@@ -49,9 +49,13 @@ body{
 </script>
 
 <div> 
-    
+    <div>Nueva grafica:</div>
     <input id="getFromInput" type="text" placeholder="1,2,3,4">
     <a href="#" id="SubmitData">send data</a> 
+
+    <div>Incrementar actual en 1 elemnto</div>
+    <input id="" type="text" placeholder="int">
+    <a href="#" id="">send data</a> 
 </div>
 <script>
 
@@ -137,12 +141,12 @@ if(data.length < 1){
     api = "/api/data";
     d3.json(api, function(error, rawData) {
   if (error) throw error;
-  todo(rawData)
+  todo(rawData[0])
 });
 
 }
 else{
-    todo(data);
+    todo(data[0]);
 }
 
 
