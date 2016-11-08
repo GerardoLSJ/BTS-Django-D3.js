@@ -28,29 +28,32 @@
 </style>
 
 <body>
-    <div class="form-inline">
-        <div class="form-group">
-            <label>Nueva grafica:</label>
-            <input id="getFromInput" type="text" placeholder="1,2,3,4" class="form-control">
-            <a href="#" id="SubmitData" class="btn btn-info">send data</a>
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10" id="d3-one"></div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label>Nueva grafica:</label>
+                    <input id="getFromInput" type="text" placeholder="1,2,3,4" class="form-control">
+                    <a id="SubmitData" class="btn btn-info">send data</a>
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label>Incrementar actual en 1 elemnto</label>
+                    <input id="getIncrement" type="text" placeholder="int" class="form-control">
+                    <a id="SubmitIncrement" class="btn btn-info">send elemnt</a>
+                </div>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label>Eliminar 1 elemnto</label>
+                    <input id="getDelete" type="text" placeholder="int" class="form-control">
+                    <a id="SubmitDeleteElem" class="btn btn-info">delete elemnt</a>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-inline">
-        <div class="form-group">
-            <label>Incrementar actual en 1 elemnto</label>
-            <input id="getIncrement" type="text" placeholder="int" class="form-control">
-            <a href="#" id="SubmitIncrement" class="btn btn-info">send elemnt</a>
-        </div>
-    </div>
-    <div class="form-inline">
-        <div class="form-group">
-            <label>Eliminar 1 elemnto</label>
-            <input id="getDelete" type="text" placeholder="int" class="form-control">
-            <a href="#" id="SubmitDeleteElem" class="btn btn-info">delete elemnt</a>
-        </div>
-    </div>
-
-    
     {% load static %}
     <script src="{% static 'd3.v3.min.js' %}"></script>
     <script src="{% static 'jquery3.min.js' %}"></script>
