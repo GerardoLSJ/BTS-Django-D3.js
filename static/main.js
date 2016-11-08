@@ -98,6 +98,64 @@ table = [{"parent": "2", "name": "1"}, {"parent": "3", "name": "2"}, {"parent": 
 
 */
 
+// d3 with Promise
+var root = [];
+
+function todo(rawData) {
+    var strat = Promise.resolve();
+    strat.then(function (success, error) {
+        return new Promise(function (yey, nop) {
+                root = d3.stratify()
+                    .id(function (d) {
+                        return d.name;
+                    })
+                    .parentId(function (d) {
+                        return d.parent;
+                    })
+                    (rawData);
+                yey();
+            })
+            //success();
+
+    }).then(function () {
+        //init root
+        console.log('Init roo after Promise')
+        root.x0 = height / 2;
+        root.y0 = 0;
+
+        function collapse(d) {
+            if (d.children) {
+                d._children = d.children;
+                d._children.forEach(collapse);
+                d.children = null;
+            }
+        }
+
+        //root.children.forEach(collapse);
+        update(root);
+
+    });
+}
+
+function askForJSON(data = []) {
+    var api;
+    if (data.length < 1) {
+        api = "/api/data";
+        d3.json(api, function (error, rawData) {
+            if (error) throw error;
+            todo(rawData[0]);
+            actualArray = rawData[1]; //save actual array
+        });
+    } else {
+        todo(data[0]);
+        actualArray = data[1]; //save actual array
+    }
+
+} //askforJSON
+askForJSON();
+
+// d3 Promise
+
 
 //D3 stuff
 var margin = {
@@ -128,65 +186,7 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-var root = [];
 
-
-function todo(rawData) {
-    var strat = Promise.resolve();
-    strat.then(function (success, error) {
-        return new Promise(function (yey, nop) {
-                root = d3.stratify()
-                    .id(function (d) {
-                        return d.name;
-                    })
-                    .parentId(function (d) {
-                        return d.parent;
-                    })
-                    (rawData);
-                yey();
-            })
-            //success();
-
-    }).then(function () {
-        console.log('after Promise')
-        root.x0 = height / 2;
-        root.y0 = 0;
-
-        function collapse(d) {
-            if (d.children) {
-                d._children = d.children;
-                d._children.forEach(collapse);
-                d.children = null;
-            }
-        }
-
-        root.children.forEach(collapse);
-        update(root);
-
-    });
-}
-
-function askForJSON(data = []) {
-    var api;
-    if (data.length < 1) {
-        api = "/api/data";
-        d3.json(api, function (error, rawData) {
-            if (error) throw error;
-
-            todo(rawData[0]);
-            actualArray = rawData[1]; //save actual array
-        });
-
-    } else {
-        todo(data[0]);
-        actualArray = data[1]; //save actual array
-    }
-
-
-
-
-} //askforJSON
-askForJSON();
 
 d3.select(self.frameElement).style("height", "800px");
 
