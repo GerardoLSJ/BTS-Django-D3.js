@@ -325,8 +325,9 @@ class arbol:
 
 
     def leerArchivo(self):
-        a = open("readfiles/leerArbol.txt","r")
+        a = open("filestxt/leerArbol.txt","r")
         arr = a.readlines();
+        a.close()
         #print("Arreglo de prueba: " + arr)
         for line in arr:
             line = line.split(',')
@@ -334,7 +335,8 @@ class arbol:
 
         return line
 
-        
+   
+#Ejemplo para leer de archivo     
 """
 class main():
     #os.system("cls")
