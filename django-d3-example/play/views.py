@@ -15,7 +15,7 @@ volatil = [23, 54, 89, 39, 13, 36, 75, 14, 27,10,9,8,76,77,78,90]
 #volatil = [11, 13, 16, 17, 19, 25, 27, 32, 33, 39, 43, 46, 48, 52, 54, 59, 62, 66, 75, 92, 95, 100, 102, 103, 105, 109, 111, 113, 124, 125, 127, 131, 137, 152, 155, 158, 164, 166, 175, 184, 185, 187, 193, 194, 201, 205, 208, 210, 211, 217, 237, 247, 251, 257, 259, 268, 272, 274, 276, 282, 284, 285,293, 297, 298, 301, 308, 317, 319, 328, 329, 337, 338, 339, 340, 354, 358, 374, 387, 388, 390, 399, 404, 413, 414, 420, 422, 430, 434, 437, 446, 448, 456, 468, 473, 480, 482, 483, 486, 493]
 a.crearArbol(volatil)
 a.autobalanceo()
-JSONlocal = a.imprimir()
+JSONlocal = a.generarJSON()
 print('EJECUTANDO DESDE ARRIBA______')
 #This populates a global VAR named JSON.
 
@@ -36,7 +36,7 @@ def get_name(request):
         a.crearArbol(sanitized)
         a.autobalanceo()
         JSONlocal = []
-        JSONlocal = a.imprimir([]) #actualizamos el JSON
+        JSONlocal = a.generarJSON([]) #actualizamos el JSON
         print('JSON locals')
         print(JSONlocal)
         data('fakeRequest') #actualizamos nuestro RESTful API 

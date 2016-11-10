@@ -22,6 +22,11 @@ $(document).ready(function () {
         var number = Number(input);
         postDeleteElem(number);
     });
+
+    //ReadTree
+    $('#ReadTree').click(function () {
+        alert('boton de prueba')
+    });
 });
 
 //end jQuery
