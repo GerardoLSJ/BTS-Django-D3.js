@@ -57,6 +57,24 @@ def readFrom(request):
     else:
         return JsonResponse( (sanitized) , safe=False)
 
+@csrf_exempt
+def saveTo(request):
+    if request.method == 'POST':
+        arr = request.POST.getlist('arr[]')
+        #print("Arreglo recuoepado", arr)
+        for cont in range(len(arr)):
+            arr[cont]=int(arr[cont])           
+        #print("Arreglo recuperado(int)",arr)
+        a = arbol()
+        a.guardarArchivo(arr)
+        a.crearArbol(arr)
+        a.autobalanceo()
+        JSONlocal = []
+        JSONlocal = a.generarJSON([]) #actualizamos el JSON
+
+        return JsonResponse( ([JSONlocal, arr ]) , safe=False)
+    else:
+        return JsonResponse( (sanitized) , safe=False)
 
 
 def graph(request):

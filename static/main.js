@@ -27,12 +27,36 @@ $(document).ready(function () {
     $('#ReadTree').click(function () {
         requestFile();
     });
+
+    //ReadTree
+    $('#SaveTree').click(function () {
+        saveFile();
+    });
 });
 
 //end jQuery
 
 
 /*REST API   json biz*/
+function saveFile() {
+    console.log(actualArray)
+    $.ajax({
+        type: "POST",
+        url: '/api/save',
+        data: {
+            arr: actualArray
+        },
+        success: function (data) {
+            console.log(data)
+            askForJSON(data);
+            console.log("success")
+        },
+        dataType: 'json'
+    });
+
+    alert('Archivo Guardado con exito');
+}
+
 function requestFile() {
     $.ajax({
         type: "POST",
@@ -40,7 +64,6 @@ function requestFile() {
         data: {
             arr: {}
         },
-        //{csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value}
         success: function (data) {
             //alert(data);
             askForJSON(data);
@@ -48,6 +71,8 @@ function requestFile() {
         },
         dataType: 'json'
     });
+
+    alert('Archivo Abierto con exito');
 }
 
 function postArr(myArr) {

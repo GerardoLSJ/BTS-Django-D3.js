@@ -337,6 +337,20 @@ class arbol:
 
         return line
 
+    def guardarArchivo(self,arr):
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        rute = os.path.join(os.path.dirname(BASE_DIR), 'static')
+        a = open( rute + '/leerArbol.txt',"w")
+        #print("Arreglo " , arr)
+
+        for item in range(len(arr)-1):
+            a.write(str(arr[item])+",")
+        a.write(str(arr[len(arr)-1]))
+
+        a.close()
+        #print("Arreglo de prueba: " + arr)
+
+
    
 #Ejemplo para leer de archivo     
 """
