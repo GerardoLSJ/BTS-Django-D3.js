@@ -325,7 +325,9 @@ class arbol:
 
 
     def leerArchivo(self):
-        a = open("filestxt/leerArbol.txt","r")
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        rute = os.path.join(os.path.dirname(BASE_DIR), 'static')
+        a = open( rute + '/leerArbol.txt',"r")
         arr = a.readlines()
         a.close()
         #print("Arreglo de prueba: " + arr)

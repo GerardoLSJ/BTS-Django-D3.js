@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from .models import Play
+#from .models import Play
 from django.http import HttpResponse
 #from .forms import NameForm
 from django.views.decorators.csrf import csrf_exempt
@@ -39,7 +39,6 @@ def get_name(request):
         JSONlocal = a.generarJSON([]) #actualizamos el JSON
         #print('JSON locals')
         #print(JSONlocal)
-        #data('fakeRequest') #actualizamos nuestro RESTful API 
         return JsonResponse( ([JSONlocal, sanitized]) , safe=False)
     else:
         return JsonResponse( (sanitized) , safe=False)
@@ -49,12 +48,12 @@ def get_name(request):
 def readFrom(request):
     if request.method == 'POST':
         a = arbol()
-        a.crearArbol([0,1,2,3,4,5])
+        arrFile = a.leerArchivo()
+        a.crearArbol(arrFile)
         a.autobalanceo()
         JSONlocal = []
         JSONlocal = a.generarJSON([]) #actualizamos el JSON
-        #data('fakeRequest') #actualizamos nuestro RESTful API 
-        return JsonResponse( ([JSONlocal, [0,1,2,3,4,5] ]) , safe=False)
+        return JsonResponse( ([JSONlocal, arrFile ]) , safe=False)
     else:
         return JsonResponse( (sanitized) , safe=False)
 
