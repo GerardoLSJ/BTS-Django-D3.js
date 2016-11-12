@@ -29,7 +29,7 @@ def get_name(request):
         #arr = list(map(arr,lambda x: x.replace('u','')))
         
         for item in arr:
-            print (item)
+            #print (item)
             sanitized.append(int(item))
 
         a = arbol()
@@ -37,10 +37,24 @@ def get_name(request):
         a.autobalanceo()
         JSONlocal = []
         JSONlocal = a.generarJSON([]) #actualizamos el JSON
-        print('JSON locals')
-        print(JSONlocal)
-        data('fakeRequest') #actualizamos nuestro RESTful API 
+        #print('JSON locals')
+        #print(JSONlocal)
+        #data('fakeRequest') #actualizamos nuestro RESTful API 
         return JsonResponse( ([JSONlocal, sanitized]) , safe=False)
+    else:
+        return JsonResponse( (sanitized) , safe=False)
+
+
+@csrf_exempt
+def readFrom(request):
+    if request.method == 'POST':
+        a = arbol()
+        a.crearArbol([0,1,2,3,4,5])
+        a.autobalanceo()
+        JSONlocal = []
+        JSONlocal = a.generarJSON([]) #actualizamos el JSON
+        #data('fakeRequest') #actualizamos nuestro RESTful API 
+        return JsonResponse( ([JSONlocal, [0,1,2,3,4,5] ]) , safe=False)
     else:
         return JsonResponse( (sanitized) , safe=False)
 

@@ -25,7 +25,7 @@ $(document).ready(function () {
 
     //ReadTree
     $('#ReadTree').click(function () {
-        alert('boton de prueba')
+        requestFile();
     });
 });
 
@@ -33,6 +33,23 @@ $(document).ready(function () {
 
 
 /*REST API   json biz*/
+function requestFile() {
+    $.ajax({
+        type: "POST",
+        url: '/api/read',
+        data: {
+            arr: {}
+        },
+        //{csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value}
+        success: function (data) {
+            //alert(data);
+            askForJSON(data);
+            console.log("success")
+        },
+        dataType: 'json'
+    });
+}
+
 function postArr(myArr) {
     console.log(myArr)
     $.ajax({

@@ -1,10 +1,11 @@
 from django.conf.urls import url
 
 
-from .views import graph, data, get_name
+from .views import graph, data, get_name, readFrom
 
 urlpatterns = [
     url(r'^$', graph),
     url(r'^api/data', data, name='data'),
     url(r'^send/$',get_name ),
+    url(r'^api/read',readFrom )
 ]
