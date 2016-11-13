@@ -272,7 +272,7 @@ function update(source) {
         .attr("x", function (d) {
             return d.children || d._children ? -10 : 10;
         })
-        .attr("dy", ".35em")
+        .attr("dy", ".90em")
         .attr("text-anchor", function (d) {
             return d.children || d._children ? "end" : "start";
         })
@@ -289,9 +289,9 @@ function update(source) {
         });
 
     nodeUpdate.select("circle")
-        .attr("r", 10.5)
+        .attr("r", 13.5)
         .style("fill", function (d) {
-            return d._children ? "lightsteelblue" : "#fff";
+            return d._children ? "#1976D2" : "#BBDEFB";
         });
 
     nodeUpdate.select("text")
