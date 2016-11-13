@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
 </head>
-
-
-
 {% load static %}
 <script src="{% static 'jquery3.min.js' %}"></script>
-
 <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
 <script src="{% static 'bootstrap.min.js' %}"></script>
 <link href="{% static 'styles.css' %}" rel="stylesheet">
@@ -40,7 +37,6 @@
 </style>
 
 <body>
-
     <div id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -51,46 +47,77 @@
                     </a>
                 </li>
                 <div class="container-fluid ">
-                <form>
-                    <!-- /input-group -->
-                    <p>Nuevo árbol</p>
-                    <div class="form-group input-group">
-                        <span class="input-group-btn">
+                    <form>
+                        <!-- /input-group -->
+                        <p>Nuevo árbol</p>
+                        <div class="form-group input-group">
+                            <span class="input-group-btn">
                                 <a class="btn btn-primary" id="SubmitData" >Enviar</a>
                             </span>
-                        <input id="getFromInput" type="text" placeholder="1,2,3,4" class="form-control">
-                    </div>
-                    <div class="divider">-------------</div>
-                    <!-- /input-group -->
-                    <p>Incrementar 1</p>
-                    <div class="form-group input-group">
-                        <span class="input-group-btn">
+                            <input id="getFromInput" type="text" placeholder="1,2,3,4" class="form-control">
+                        </div>
+                        <div class="divider">-------------</div>
+                        <!-- /input-group -->
+                        <p>Incrementar 1</p>
+                        <div class="form-group input-group">
+                            <span class="input-group-btn">
                                 <a class="btn btn-success " id="SubmitIncrement" >Incrementar</a>
                             </span>
-                        <input id="getIncrement" type="text" placeholder="Incrementar" class="form-control">
-                    </div>
-                    <div class="divider">-------------</div>
-                    <!-- /input-group -->
-                    <p>Eliminar elemnto</p>
-                    <div class="form-group input-group">
-                        <span class="input-group-btn">
+                            <input id="getIncrement" type="text" placeholder="Incrementar" class="form-control">
+                        </div>
+                        <div class="divider">-------------</div>
+                        <!-- /input-group -->
+                        <p>Eliminar elemento</p>
+                        <div class="form-group input-group">
+                            <span class="input-group-btn">
                                 <a class="btn btn-warning" id="SubmitDeleteElem">Eliminar</a>
                             </span>
-                        <input id="getDelete" type="text" placeholder="Un numero a borrar" class="form-control">
-                    </div>
-                    <!-- /input-group -->
-                    <div class="form-group">
-                        <div class="divider">-------------</div>
-                        <p>Leer Arbol de Archivo</p>
-                    </div>
-                    <a id="ReadTree" class="btn btn-info">Leer</a>
-                    <div class="form-group">
-                        <div class="divider">-------------</div>
-                        <p>Guardar Arbol en Archivo</p>
-                    </div>
-                    <a id="SaveTree" class="btn btn-info">Guardar</a>
-                </form>
-            </div>
+                            <input id="getDelete" type="text" placeholder="Un numero a borrar" class="form-control">
+                        </div>
+                        <!-- /input-group -->
+                        <p>Buscar elemento</p>
+                        <div class="form-group input-group">
+                            <span class="input-group-btn">
+                                <a class="btn btn-info" id="searchElement">Buscar</a>
+                            </span>
+                            <input id="searchElementInput" type="text" placeholder="Un numero a buscar" class="form-control">
+                        </div>
+                        <ul>
+                            <li id="myIdSearch">
+                                <h4>id:</h4>
+                            </li>
+                            <li id="myLevelSearch">
+                                <h4>nivel:</h4>
+                            </li>
+                        </ul>
+                        <!-- /Read-group -->
+                        <div class="form-group">
+                            <div class="divider">-------------</div>
+                            <p>Leer Arbol de Archivo</p>
+                        </div>
+                        <a id="ReadTree" class="btn btn-info">Leer</a>
+                        <!-- /Read-group -->
+                        <div class="form-group">
+                            <div class="divider">-------------</div>
+                            <p>Guardar Arbol en Archivo</p>
+                        </div>
+                        <a id="SaveTree" class="btn btn-info">Guardar</a>
+                        <!-- /Read-group -->
+                        <div class="form-group">
+                            <div class="divider">-------------</div>
+                            <p>Obtener Max y Min</p>
+                        </div>
+                        <a id="MaxMin" class="btn btn-primary">Obtener</a>
+                        <ul>
+                            <li id="myMax">
+                                <h4>Max:</h4>
+                            </li>
+                            <li id="myMin">
+                                <h4>Min:</h4>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -108,19 +135,15 @@
         <!-- /#page-content-wrapper -->
     </div>
     <!-- /#wrapper -->
-        <script>
+    <script>
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
-    </script>
-
-
-
-
-    {% load static %}
+    </script> {% load static %}
     <script src="{% static 'd3.v3.min.js' %}"></script>
     <script src="{% static 'd3-hierarchy.v1.min.js' %}"></script>
     <script src="{% static 'main.js' %}"></script>
 </body>
-  </html>
+
+</html>

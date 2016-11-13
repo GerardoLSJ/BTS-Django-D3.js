@@ -23,6 +23,13 @@ $(document).ready(function () {
         postDeleteElem(number);
     });
 
+    //SearchElement
+    $('#searchElement').click(function () {
+        var input = $('#searchElementInput').val();
+        var number = Number(input);
+        getSearch(number);
+    });
+
     //ReadTree
     $('#ReadTree').click(function () {
         requestFile();
@@ -32,6 +39,11 @@ $(document).ready(function () {
     $('#SaveTree').click(function () {
         saveFile();
     });
+
+    //Max y Min
+    $('#MaxMin').click(function () {
+        getMaxMin();
+    });
 });
 
 //end jQuery
@@ -39,7 +51,7 @@ $(document).ready(function () {
 
 /*REST API   json biz*/
 function saveFile() {
-    console.log(actualArray)
+    //console.log(actualArray)
     $.ajax({
         type: "POST",
         url: '/api/save',
@@ -54,7 +66,51 @@ function saveFile() {
         dataType: 'json'
     });
 
-    alert('Archivo Guardado con exito');
+    //alert('Archivo Guardado con exito');
+}
+
+function getMaxMin() {
+    console.log('Max Min function')
+    $.ajax({
+        type: "POST",
+        url: '/api/MaxMin',
+        data: {
+            arr: actualArray
+        },
+        success: function (data) {
+            console.log(data)
+            $('#myMax h4').remove()
+            $('#myMin h4').remove()
+            $('#myMax').append('<h4> Max: '+data[0]+'</h4>')
+            $('#myMin').append('<h4> Min: '+data[1]+'</h4>')
+        },
+        dataType: 'json'
+    });
+
+    //alert('Archivo Guardado con exito');
+}
+
+function getSearch(target) {
+    console.log('Search function')
+    $.ajax({
+        type: "POST",
+        url: '/api/search',
+        data: {
+            arr: actualArray,
+            target: [target]
+        },
+        success: function (data) {
+            data.reverse()
+            $('#myIdSearch h4').remove()
+            $('#myLevelSearch h4').remove()
+            $('#myIdSearch').append('<h4> Nodo: '+data[1]+'</h4>')
+            $('#myLevelSearch').append('<h4> Nivel: '+data[0]+'</h4>')
+
+        },
+        dataType: 'json'
+    });
+
+    //alert('Archivo Guardado con exito');
 }
 
 function requestFile() {
@@ -72,7 +128,7 @@ function requestFile() {
         dataType: 'json'
     });
 
-    alert('Archivo Abierto con exito');
+    //alert('Archivo Abierto con exito');
 }
 
 function postArr(myArr) {

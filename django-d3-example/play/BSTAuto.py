@@ -3,6 +3,8 @@ import os
 import random
 #global
 JSON = []
+maxmin = [-1,-1]
+searchedItem = []
 
 class vertex:
     def __init__(self,v):
@@ -40,7 +42,7 @@ class arbol:
             self.agregar(self.raiz, ver)
 
     def eliminarVertice(selv,v):
-    	pass
+        pass
 
     def crearArbol(self,listVer):
         for i in range(len(listVer)):
@@ -55,15 +57,15 @@ class arbol:
             if act.padre == None:
                 padre = "" #Instead of NONE 
             else:
-            	padre = act.padre.id	
+                padre = act.padre.id	
             if act.hizq == None:
                 hIzq = "None"
             else:
-            	hIzq = act.hizq.id
+                hIzq = act.hizq.id
             if act.hder == None:
                 hDer = "None"
             else:
-            	hDer = act.hder.id
+                hDer = act.hder.id
                 
             #print("Nodo: {:<7} FE: {:<3} Altura: {:<5} Padre: {:<7} hIzq: {:<7} hDer: {}".format(act.id,act.FE,act.altura,padre,hIzq,hDer))
             JSON.append({ 'name': str(act.id),'parent': str(padre)})
@@ -121,37 +123,37 @@ class arbol:
 
     def imprimirDesv(self,arrDesv,act = False):
         if act is False: 
-        	act = self.raiz
-        	self.alturas()
-        	self.calcFE()
+            act = self.raiz
+            self.alturas()
+            self.calcFE()
         if act != None:
             self.imprimirDesv(arrDesv,act.hizq)
             if act.FE > 1:
-            	#print(act.id)
-            	arrDesv.append([act.id,"der"])
+                #print(act.id)
+                arrDesv.append([act.id,"der"])
             elif act.FE < -1:
-            	#print(act.id)
-            	arrDesv.append([act.id,"izq"])
+                #print(act.id)
+                arrDesv.append([act.id,"izq"])
             self.imprimirDesv(arrDesv,act.hder)
         return arrDesv
 
     def obtenerOBJDesv(self,arrDesv,act = False): #Devuelve los vertices desviados como OBJ
         if len(arrDesv) < 1:
-	        if act is False: 
-	        	act = self.raiz
-	        	self.alturas()
-	        	self.calcFE()
-	        if act != None:
-	            self.obtenerOBJDesv(arrDesv,act.hizq)
-	            if len(arrDesv) < 1:
-		            if act.FE > 1:
-		            	#print(act.id)
-		            	arrDesv.append([act,"der"])
-		            elif act.FE < -1:
-		            	#print(act.id)
-		            	arrDesv.append([act,"izq"])
-		            self.obtenerOBJDesv(arrDesv,act.hder)
-	        return arrDesv
+            if act is False: 
+                act = self.raiz
+                self.alturas()
+                self.calcFE()
+            if act != None:
+                self.obtenerOBJDesv(arrDesv,act.hizq)
+                if len(arrDesv) < 1:
+                    if act.FE > 1:
+                        #print(act.id)
+                        arrDesv.append([act,"der"])
+                    elif act.FE < -1:
+                        #print(act.id)
+                        arrDesv.append([act,"izq"])
+                    self.obtenerOBJDesv(arrDesv,act.hder)
+            return arrDesv
 
 
     def RR(self,n,act = False):	#Rotacion a la derecha (n = int)
@@ -292,42 +294,50 @@ class arbol:
         #self.imprimir()
 
     def buscarVertice(self,v, act = False): #Retorna un arreglo, Encontrado:[1, objAct]; No encontrado:[0]
-    	if act is False: 
-    		act = self.raiz
+        if act is False: 
+            act = self.raiz
 
-    	if act != None:
-    		#print("actual", act.id)
-	    	if act.id == v:
-	    		#print("Vertice: ", act.id, "\t", "Profundidad: ", act.profundidad)
-	    		return [1,act]
-	    	else:
-	    		if act.id < v:
-	    			retorno = self.buscarVertice(v, act.hder)
-	    		elif act.id > v:
-	    			retorno = self.buscarVertice(v,act.hizq)
-    	else:
-    		#print("Vertice {} no encontrado".format(v))
-    		return [0]
+        if act != None:
+            #print("actual", act.id)
+            if act.id == v:
+                #print("Vertice: ", act.id, "\t", "Profundidad: ", act.profundidad)
+                searchedItem.append(act.id)
+                searchedItem.append(act.profundidad)
+                return [1,act]
+            else:
+                if act.id < v:
+                    retorno = self.buscarVertice(v, act.hder)
+                elif act.id > v:
+                    retorno = self.buscarVertice(v,act.hizq)
+        else:
+            #print("Vertice {} no encontrado".format(v))
+            searchedItem.append(-1)
+            searchedItem.append(-1)
+            return [0]
 
-    	return retorno
+        return retorno
 
 
 
     def obtenerMin(self):
-    	act = self.raiz
-    	if self.raiz != None:
-	    	while act.hizq:
-	    		#print(act.id)
-	    		act = act.hizq
-	    	print("Elemento menor:", act.id)
+        act = self.raiz
+        if self.raiz != None:
+            while act.hizq:
+                #print(act.id)
+                act = act.hizq
+            print("Elemento menor:", act.id)
+            maxmin[1] = int(act.id)
+            #return act.id
 
     def obtenerMax(self):
-    	act = self.raiz
-    	if self.raiz != None:
-	    	while act.hder:
-	    		#print(act.id)
-	    		act = act.hder
-	    	print("Elemento mayor:", act.id)
+        act = self.raiz
+        if self.raiz != None:
+            while act.hder:
+                #print(act.id)
+                act = act.hder
+            print("Elemento mayor:", act.id)
+            maxmin[0] = int(act.id)
+            #return act.id
 
 
 
@@ -386,12 +396,12 @@ class main():
     
     x = 2
     while x:
-    	x = x-1
-    	vertice = int(input("Vertice a buscar: "))
-    	resultado = a.buscarVertice(vertice)
-    	if resultado[0] == 0:
-    		print("Vertice {} no encontrado".format(vertice))
-    	else:
+        x = x-1
+        vertice = int(input("Vertice a buscar: "))
+        resultado = a.buscarVertice(vertice)
+        if resultado[0] == 0:
+            print("Vertice {} no encontrado".format(vertice))
+        else:
             nodo = resultado[1]
             print("Nodo {} encontrado a una profundidad {} ".format(nodo.id,nodo.profundidad))
             

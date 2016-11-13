@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 
-from .views import graph, data, get_tree, readFrom, saveTo
+from .views import graph, data, get_tree, readFrom, saveTo, MaxMin,mySearch
 
 urlpatterns = [
     url(r'^$', graph),
@@ -9,4 +9,8 @@ urlpatterns = [
     url(r'^send/$',get_tree ),
     url(r'^api/read',readFrom),
     url(r'^api/save',saveTo),
+    url(r'^api/MaxMin',MaxMin),
+    url(r'^api/search',mySearch),
+
+    
 ]

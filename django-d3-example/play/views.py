@@ -76,6 +76,44 @@ def saveTo(request):
     else:
         return JsonResponse( (sanitized) , safe=False)
 
+@csrf_exempt
+def MaxMin(request):
+    if request.method == 'POST':
+        arr = request.POST.getlist('arr[]')
+        for cont in range(len(arr)):
+            arr[cont]=int(arr[cont])           
+
+        a = arbol()
+        a.crearArbol(arr)
+        a.autobalanceo()
+        a.obtenerMax()
+        a.obtenerMin()
+        return JsonResponse( (maxmin) , safe=False)
+
+@csrf_exempt
+def mySearch(request):
+    if request.method == 'POST':
+        arr = request.POST.getlist('arr[]')
+        target = request.POST.getlist('target[]')
+        target = int(target[0])
+        print('arr')
+        print(arr)
+        print('target')
+        print(target)
+
+        for cont in range(len(arr)):
+            arr[cont]=int(arr[cont])           
+        
+        
+        b = arbol()
+        b.crearArbol(arr)
+        b.autobalanceo()
+        b.buscarVertice(target)
+
+
+        return JsonResponse( (searchedItem) , safe=False)
+
+
 
 def graph(request):
     return render(request, 'graph/graph.html')
