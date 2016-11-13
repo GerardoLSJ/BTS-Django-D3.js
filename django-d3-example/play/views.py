@@ -96,8 +96,8 @@ def mySearch(request):
         arr = request.POST.getlist('arr[]')
         target = request.POST.getlist('target[]')
         target = int(target[0])
-        print('arr')
-        print(arr)
+        #print('arr')
+        #print(arr)
         print('target')
         print(target)
 
