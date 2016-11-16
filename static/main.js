@@ -12,8 +12,16 @@ $(document).ready(function () {
     //postIncrement
     $('#SubmitIncrement').click(function () {
         var input = $('#getIncrement').val();
-        var number = Number(input);
-        postIncrement(number);
+        if (input === "") {
+            alert('Introduce un numero');
+        } else if (actualArray.indexOf(Number(input)) >= 0) {
+            alert('Ya existe');
+        } else {
+            var number = Number(input);
+            postIncrement(number);
+
+        }
+
     });
 
     //postDeleteElem
@@ -81,8 +89,8 @@ function getMaxMin() {
             console.log(data)
             $('#myMax h4').remove()
             $('#myMin h4').remove()
-            $('#myMin').append('<h4> Min: '+data[1]+'</h4>')
-            $('#myMax').append('<h4> Max: '+data[0]+'</h4>')
+            $('#myMin').append('<h4> Min: ' + data[1] + '</h4>')
+            $('#myMax').append('<h4> Max: ' + data[0] + '</h4>')
         },
         dataType: 'json'
     });
@@ -103,13 +111,12 @@ function getSearch(target) {
             data.reverse()
             $('#myIdSearch h4').remove()
             $('#myLevelSearch h4').remove()
-            if(data[0]!=-1){
-                $('#myIdSearch').append('<h4> Nodo: '+data[1]+'</h4>')
-                $('#myLevelSearch').append('<h4> Nivel: '+data[0]+'</h4>')
-            }
-            else{
-                $('#myIdSearch').append('<h4> Nodo: '+'Not found'+'</h4>')
-                $('#myLevelSearch').append('<h4> Nivel: '+'-----'+'</h4>')
+            if (data[0] != -1) {
+                $('#myIdSearch').append('<h4> Nodo: ' + data[1] + '</h4>')
+                $('#myLevelSearch').append('<h4> Nivel: ' + data[0] + '</h4>')
+            } else {
+                $('#myIdSearch').append('<h4> Nodo: ' + 'Not found' + '</h4>')
+                $('#myLevelSearch').append('<h4> Nivel: ' + '-----' + '</h4>')
             }
 
 
