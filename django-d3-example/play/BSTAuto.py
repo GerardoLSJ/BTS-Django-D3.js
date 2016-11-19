@@ -252,24 +252,14 @@ class arbol:
             #if objDesv.hder is not None: print("PRUEBA:", objDesv.hder, objDesv.hder.altura,objDesv.hder.FE,  objDesv.hder.id)
             
             #print("EQUILIBRANDO NODO ", objDesv.id)
-            if objDesv.hder == None and objDesv.hizq != None and objDesv.hizq.altura >= 1 and objDesv.hizq.FE == 1:
-                #print("ENTRANDO A RDR-A")
+            if ladoDesv == "izq" and objDesv.hizq.FE == 1:
+                #print("ENTRANDO A RDR")
                 self.RDR(objDesv)
-                #print("SALIENDO DE RDR-A")
-            elif objDesv.hder != None and objDesv.hizq != None and (objDesv.hizq.altura-objDesv.hder.altura>=2) and objDesv.hizq.FE == 1:
-                #print("ENTRANDO A RDR-B")
-                self.RDR(objDesv)
-                #print("SALIENDO DE LDR-B")
-
-            elif objDesv.hizq == None and objDesv.hder != None and objDesv.hder.altura >= 1  and objDesv.hder.FE == -1:
-                #print("ENTRANDO A LDR-A")
+                #print("SALIENDO DE RDR")
+            elif ladoDesv == "der" and objDesv.hder.FE == -1:
+                #print("ENTRANDO A LDR")
                 self.LDR(objDesv)
-                #print("SALIENDO DE LDR-A")
-            elif objDesv.hizq != None and objDesv.hder != None and (objDesv.hder.altura-objDesv.hizq.altura >=2) and objDesv.hizq.FE == -1:
-                #print("ENTRANDO A LDR-B")
-                self.LDR(objDesv)
-                #print("SALIENDO DE LDR-B")
-
+                #print("SALIENDO DE LDR")
             elif ladoDesv == "izq":
                 #print("ENTRANDO A RR")
                 self.RR(objDesv.id)
