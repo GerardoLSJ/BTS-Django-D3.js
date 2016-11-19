@@ -6,8 +6,13 @@ var actualArray = [];
 $(document).ready(function () {
     $('#SubmitData').click(function () {
         var input = $('#getFromInput').val();
-        var arr = input.split(",");
-        postArr(arr);
+        if (input === "") {
+            alert('Introduce numeros separados por coma');
+        } else {
+            var arr = input.split(",");
+            postArr(arr);
+        }
+
     });
     //postIncrement
     $('#SubmitIncrement').click(function () {
