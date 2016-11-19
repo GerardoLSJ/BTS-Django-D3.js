@@ -333,7 +333,7 @@ class arbol:
 
     def leerArchivo(self):
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        rute = os.path.join(os.path.dirname(BASE_DIR), 'static')
+        rute = os.path.join(os.path.dirname(BASE_DIR), 'django-d3/static')
         a = open( rute + '/leerArbol.txt',"r")
         arr = a.readlines()
         a.close()
@@ -346,7 +346,7 @@ class arbol:
 
     def guardarArchivo(self,arr):
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        rute = os.path.join(os.path.dirname(BASE_DIR), 'static')
+        rute = os.path.join(os.path.dirname(BASE_DIR), 'django-d3/static')
         a = open( rute + '/leerArbol.txt',"w")
         #print("Arreglo " , arr)
 
