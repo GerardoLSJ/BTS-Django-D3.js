@@ -2,7 +2,7 @@
 # Binary Tree Search + Django + D3.js
 ###Auto Balance Binary Tree Search or AVL tree  ( self-balancing binary search tree.) display with D3.js
 
-Clone this repository:
+Clone this repository type in your terminal:
 ```sh
 $ git clone https://github.com/GerardoLSJ/BTS-Django-D3.js.git
 
@@ -16,27 +16,28 @@ To run make sure you have ``` pip ``` installed. (Python Package Manager) and th
 ```sh
 $ pip install django
 ```
-Then do:
+Then change you directory to the main app:
 
 ```sh
 $ cd BTS-Django-D3.js
-$ cd django-d3-example
+$ cd django-d3
 ```
 
-Your are now in our app directory. To run the app just do:
 
-```sh
-$ python manage.py runserver
-```
 
-If ask you to run "migrate" just do it. Will be something like
+Your are now in our app directory. 
+The first time you are here you have to run this command (Not neede for further executions):
 
 ```sh
 $ python manage.py migrate
 ```
 
+and then then to start the server: 
+```sh
+$ python manage.py runserver
+```
 
-Now just open you localhost at 8000 port.
+Now just open your localhost at 8000 port.
 
 ```sh
     http://localhost:8000/
@@ -45,11 +46,11 @@ Now just open you localhost at 8000 port.
 ### Play with it!
 
 
-The main thing are in the folders:
+The main functionality is at:
 ```
 /static/main.js  at the first directory
 ```
 ### and at:
 ```
-django-d3-example/views.py
+django-d3/views.py
 ```
