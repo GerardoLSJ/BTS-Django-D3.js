@@ -23,7 +23,7 @@ $(document).ready(function () {
             alert('Ya existe');
         } else {
             var number = Number(input);
-            if (number) {
+            if (number || number == 0) {
                 postIncrement(number);
             } else {
                 alert('No es un numero');
@@ -45,7 +45,7 @@ $(document).ready(function () {
     $('#searchElement').click(function () {
         var input = $('#searchElementInput').val();
         var number = Number(input);
-        if (number) {
+        if (number || number == 0) {
             getSearch(number);
         } else {
             alert('No es un numero');
