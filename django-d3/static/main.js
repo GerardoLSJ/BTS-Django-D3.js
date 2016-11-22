@@ -23,7 +23,12 @@ $(document).ready(function () {
             alert('Ya existe');
         } else {
             var number = Number(input);
-            postIncrement(number);
+            if (number) {
+                postIncrement(number);
+            } else {
+                alert('No es un numero');
+            }
+
 
         }
 
@@ -40,7 +45,12 @@ $(document).ready(function () {
     $('#searchElement').click(function () {
         var input = $('#searchElementInput').val();
         var number = Number(input);
-        getSearch(number);
+        if (number) {
+            getSearch(number);
+        } else {
+            alert('No es un numero');
+        }
+
     });
 
     //ReadTree
