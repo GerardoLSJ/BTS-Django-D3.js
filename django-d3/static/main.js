@@ -8,9 +8,11 @@ $(document).ready(function () {
         var input = $('#getFromInput').val();
         if (input === "") {
             alert('Introduce numeros separados por coma');
+            $('#getFromInput').val('');
         } else {
             var arr = input.split(",");
             postArr(arr);
+            $('#getFromInput').val('');
         }
 
     });
@@ -21,12 +23,15 @@ $(document).ready(function () {
             alert('Introduce un numero');
         } else if (actualArray.indexOf(Number(input)) >= 0) {
             alert('Ya existe');
+            $('#getIncrement').val('');
         } else {
             var number = Number(input);
             if (number || number == 0) {
                 postIncrement(number);
+                $('#getIncrement').val('');
             } else {
                 alert('No es un numero');
+                $('#getIncrement').val('');
             }
 
 
@@ -39,6 +44,7 @@ $(document).ready(function () {
         var input = $('#getDelete').val();
         var number = Number(input);
         postDeleteElem(number);
+        $('#getDelete').val('');
     });
 
     //SearchElement
@@ -47,8 +53,10 @@ $(document).ready(function () {
         var number = Number(input);
         if (number || number == 0) {
             getSearch(number);
+            $('#searchElementInput').val('');
         } else {
             alert('No es un numero');
+            $('#searchElementInput').val('');
         }
 
     });
