@@ -351,6 +351,10 @@ function update(source) {
     var nodeEnter = node.enter().append("g")
         .attr("class", "node")
         .attr("transform", function (d) {
+            console.log(d);
+            console.log('Depth: ' + d.depth);
+            console.log('Height: '+ d.height);
+            console.log('------');
             return "translate(" + source.y0 + "," + source.x0 + ")";
         })
         .on("click", click);
@@ -370,7 +374,7 @@ function update(source) {
             return d.children || d._children ? "end" : "start";
         })
         .text(function (d) {
-            return d.id;
+            return d.id; //[d.id, 'h: '+d.height, 'd: '+d.depth];
         })
         .style("fill-opacity", 1e-6);
 
