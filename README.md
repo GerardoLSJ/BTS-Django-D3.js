@@ -1,6 +1,9 @@
 
 # Binary Tree Search + Django + D3.js
-###Auto Balance Binary Tree Search or AVL tree  ( self-balancing binary search tree.) display with D3.js
+### Auto Balance Binary Tree Search or AVL tree  ( self-balancing binary search tree.) display with D3.js
+
+### Demo
+![](demo.gif)
 
 Clone this repository type in your terminal:
 ```sh
