@@ -3,7 +3,7 @@
 ### Auto Balance Binary Tree Search or AVL tree  ( self-balancing binary search tree.) display with D3.js
 
 ### Demo
-![](demo.gif)
+![](demo2.gif)
 
 Clone this repository type in your terminal:
 ```sh
